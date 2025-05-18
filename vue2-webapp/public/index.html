@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Vue 2 Container</title>
+  </head>
+  <script type="module">
+    // Adjust the URL below to your CDN or remote ESM build location
+    window.loadVue3Route = async function(routeName) {
+      // Example: CDN or remote URL for your micro-frontend build
+      const  result = await import('http://localhost:4173/mounted.js');
+      console.log(result);
+      // Mount the route into the container
+      result.mount(routeName, document.getElementById('micro-frontend-root'));
+    }
+  </script>
+
+  <body>
+    <div id="app"></div>
+    <!-- Vue CLI will inject your Vue 2 bundle here -->
+  </body>
+</html>
