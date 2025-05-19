@@ -1,11 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Vue 3 Microfrontend</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="src/mounted.ts"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico">
+  <title>Micro Frontend - Local Dev</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+    
+    #app {
+      min-height: 100vh;
+    }
+    
+    /* Dev environment indicator */
+    body::before {
+      content: 'DEV MODE';
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background-color: rgba(255, 0, 0, 0.7);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <!-- 
+    In Vite, this script tag is processed and replaced with the 
+    appropriate entry scripts during development and build
+  -->
+  <script type="module" src="src/main.ts"></script>
+</body>
 </html>

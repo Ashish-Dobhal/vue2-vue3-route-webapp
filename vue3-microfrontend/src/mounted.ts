@@ -1,40 +1,87 @@
-import { createApp } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createApp } from 'vue';
+import App from './App.vue';
+import { createRouter, createWebHashHistory, Router } from 'vue-router';
+import routes from './routes';
+import { isDev, version } from './config';
 
-import { routes } from 'vue-router/auto-routes'
+// Use version from config
+export const VERSION = version;
 
-console.log("##########################")
-const mountedApps: Record<string, any> = {}
-
-export async function mount(routeName: string, el: HTMLElement, options: { onNavigate?: (route: string) => void } ) {
-  // Find the route by name
-  const router = createRouter({
-    history: createWebHistory(), // Uses browser history API
-    routes,
-  })
-  const route = routes.find(r => r.name === routeName)
-  if (!route) throw new Error(`Route ${routeName} not found`)
-
-    router.push({ name: routeName })
-    
-  // Dynamically import the route component
-  const component = await route.component()
-
-  // Create a Vue app for this route
-  const app = createApp(component.default || component)
-  // Optional: Use router only if needed for nested routes
-  // const router = createRouter({ history: createWebHistory(), routes: [route] })
-  // app.use(router)
-  app.mount(el)
-
-  // Store app instance for potential unmounting
-  mountedApps[routeName] = app
+// Basic interface for mount props
+interface MountProps {
+  showHeader?: boolean;
+  title?: string;
+  routeName?: string;
+  [key: string]: any;
 }
 
-export function unmount(routeName: string, el: HTMLElement) {
-  if (mountedApps[routeName]) {
-    mountedApps[routeName].unmount()
-    el.innerHTML = ''
-    delete mountedApps[routeName]
+// Basic interface for module API
+interface ModuleAPI {
+  unmount: () => void;
+  version: string;
+  router: Router;
+}
+
+// Mount function for federation
+export async function mount(el: Element, props: MountProps = {}): Promise<ModuleAPI> {
+  // Create the app instance
+  const app = createApp(App, props);
+  
+  // Create router with hash mode
+  const router = createRouter({
+    history: createWebHashHistory('/'),
+  routes
+});
+
+app.use(router);
+
+ const parseRoute = (fullPath?: string) => {
+    if (!fullPath) return '/'
+    
+    // Remove potential prefix patterns
+    const cleanRoutes = [
+      /^#\/about-book-of-business/,
+      /^#/
+    ]
+
+    let parsedPath = fullPath
+    cleanRoutes.forEach(regex => {
+      parsedPath = parsedPath.replace(regex, '')
+    })
+
+    return parsedPath.replace(/^\//, '') || '/'
+  }
+  // Navigate to specified route if provided
+  if (props.routeName) {
+     const cleanRoute = parseRoute(props.routeName)
+    router.push(cleanRoute).catch(err => {
+      console.warn(`Failed to navigate to route "${props.routeName}":`, err);
+    });
+  }
+
+  // Mount the app
+  app.mount(el);
+  
+  // Return simple API
+  return {
+    unmount: () => app.unmount(),
+    version: VERSION,
+    router
+  };
+}
+
+// No need to rely on import.meta.env.DEV directly
+export function initDevMode(): void {
+  if (isDev) {
+    const appElement = document.getElementById('app');
+    if (appElement) {
+      mount(appElement, {
+        showHeader: true,
+        title: 'Dev Mode - Micro Frontend',
+        routeName: 'home' // Default route for dev mode
+      });
+    } else {
+      console.error('Root element #app not found');
+    }
   }
 }

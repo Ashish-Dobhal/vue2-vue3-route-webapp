@@ -9,7 +9,7 @@
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
       "baseUrl": ".",
-      "types": ["unplugin-vue-router/client"]
+      "types": ["unplugin-vue-router/client", "vite/client"]
     },
     "include": [
       "src",

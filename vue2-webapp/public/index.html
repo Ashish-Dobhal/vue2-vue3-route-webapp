@@ -5,18 +5,58 @@
     <title>Vue 2 Container</title>
   </head>
   <script type="module">
-    // Adjust the URL below to your CDN or remote ESM build location
-    window.loadVue3Route = async function(routeName) {
-      // Example: CDN or remote URL for your micro-frontend build
-      const  result = await import('http://localhost:4173/mounted.js');
-      console.log(result);
-      // Mount the route into the container
-      result.mount(routeName, document.getElementById('micro-frontend-root'));
+    // Micro Frontend Loading Function
+    window.loadMicroFrontend = async function(options) {
+      try {
+        // Dynamic import with flexible configuration
+        const { 
+          url = 'http://localhost:4173/mounted.js', 
+          routeName, 
+          mountPoint = 'micro-frontend-root' 
+        } = options;
+
+        // Import the remote module
+        const container = await import("http://localhost:4173/assets/remoteEntry.js");
+        console.log(Object.keys(container));
+
+        try {
+          // Properly await the promise resolution and call the returned factory
+          const factory = await container.get('./mounted');
+          console.log(factory);
+          const module = factory();
+
+        // Logging for debugging
+        console.log('Micro Frontend Module:', module);
+
+          // Check for mount method
+          if (typeof module.mount === 'function') {
+            // Mount the route
+            module.mount(document.getElementById(mountPoint), { routeName });
+          } else {
+            console.error('Invalid mount function in micro frontend');
+      }
+        } catch (moduleError) {
+          console.error('Module loading error:', moduleError);
     }
+      } catch (error) {
+        console.error('Micro Frontend Loading Error:', error);
+      }
+    }
+
+    // Optional: Cross-window communication
+    window.addEventListener('message', (event) => {
+      // Handle micro frontend communication
+      if (event.data.type === 'MICRO_FRONTEND_LOAD') {
+        window.loadMicroFrontend(event.data.payload);
+      }
+    });
   </script>
 
   <body>
+    <header>Header webapp</header>
     <div id="app"></div>
-    <!-- Vue CLI will inject your Vue 2 bundle here -->
+    
+    <!-- Micro Frontend Root -->
+    <div id="micro-frontend-root"></div>
   </body>
 </html>
