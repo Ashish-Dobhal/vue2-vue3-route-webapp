@@ -35,33 +35,17 @@ export async function mount(el: Element, props: MountProps = {}): Promise<Module
 
 app.use(router);
 
- const parseRoute = (fullPath?: string) => {
-    if (!fullPath) return '/'
-    
-    // Remove potential prefix patterns
-    const cleanRoutes = [
-      /^#\/about-book-of-business/,
-      /^#/
-    ]
-
-    let parsedPath = fullPath
-    cleanRoutes.forEach(regex => {
-      parsedPath = parsedPath.replace(regex, '')
-    })
-
-    return parsedPath.replace(/^\//, '') || '/'
-  }
   // Navigate to specified route if provided
   if (props.routeName) {
-     const cleanRoute = parseRoute(props.routeName)
-    router.push(cleanRoute).catch(err => {
-      console.warn(`Failed to navigate to route "${props.routeName}":`, err);
-    });
+    // router.push('about')
   }
 
   // Mount the app
   app.mount(el);
-  
+  setTimeout(() => {
+    //  router.push('/about')  
+
+  }, 10)
   // Return simple API
   return {
     unmount: () => app.unmount(),

@@ -24,7 +24,21 @@ const routes = [
     component: ParentBComponent,
     props: { route: 'parentB' },
     children: [
+
       {
+        path: '',
+        redirect: 'home',
+      },
+            {
+        path: 'home',
+        component: MicroFrontendLoader,
+        props: {
+          name: 'book-of-business',
+          baseRoute: 'parentB',
+          version: 'x.x.x'
+        },
+      },      
+        {
         path: 'about',
         name: 'about',
         component: MicroFrontendLoader,
@@ -32,8 +46,16 @@ const routes = [
           name: 'book-of-business',
           baseRoute: 'parentB',
           version: 'x.x.x'
-        }
-      }
+        }},
+          {
+            path: 'about/:id',
+            name: 'AboutId',
+            component: MicroFrontendLoader,
+            meta: {
+              title: 'AboutId',
+              // requiresAuth: false
+            }
+          },
     ]
   },
   // Catch-all route for undefined routes

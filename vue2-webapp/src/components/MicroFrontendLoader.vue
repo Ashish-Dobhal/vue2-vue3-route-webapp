@@ -24,19 +24,25 @@ export default {
   name: 'MicroFrontendLoader',
   
   props: {
-    // Configuration for micro frontend
-    config: {
-      type: Object,
-      required: false,
-      validator: (config) => {
-        return config.url && config.routeName
-      }
-    },
+    // // Configuration for micro frontend
+    // config: {
+    //   type: Object,
+    //   required: false,
+    //   validator: (config) => {
+    //     return config.url && config.routeName
+    //   }
+    // },
     
     // Custom mount point ID
     mountPointId: {
       type: String,
       default: 'micro-frontend-root'
+    },
+
+    // Base route for the micro frontend
+    baseRoute: {
+      type: String,
+      default: ''
     }
   },
   
@@ -49,27 +55,27 @@ export default {
   },
   
   methods: {
-        parseRoute(fullPath) {
-      // Remove hash and base route
-      const cleanRoute = fullPath
-        .replace(/^#/, '')
-        .replace(this.baseRoute, '')
-        .replace(/^\//, '')
+    //     parseRoute(fullPath) {
+    //   // Remove hash and base route
+    //   const cleanRoute = fullPath
+    //     .replace(/^#/, '')
+    //     .replace(this.baseRoute, '')
+    //     .replace(/^\//, '')
 
-      return cleanRoute || ''
-    },
+    //   return cleanRoute || ''
+    // },
     async loadMicroFrontend() {
       try {
         // Reset previous state
         this.isLoading = true
         this.error = null
         
-        const initialRoute = this.parseRoute(window.location.hash);
+        // const initialRoute = this.parseRoute(window.location.hash);
         // Use global loading function
         if (window.loadMicroFrontend) {
           await window.loadMicroFrontend({
-            url: this.config?.url || '',
-            routeName:  initialRoute,
+            url: '',
+            routeName:  'parentB/home',
             mountPoint: this.mountPointId
           })
         } else {

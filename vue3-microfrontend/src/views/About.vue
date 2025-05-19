@@ -1,11 +1,11 @@
 <template>
-    <h1> About View </h1>
+  <h1> About View </h1>
 </template>
 <script lang="ts">
 import { defineComponent  } from 'vue';
 
 export default defineComponent({
-  name: 'AboutUs',
+  name: 'About',
   props: {
     // Define your props here
   },

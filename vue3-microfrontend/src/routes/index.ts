@@ -1,39 +1,13 @@
 import { RouteRecordRaw } from 'vue-router';
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
+import AboutId from '../views/AboutId.vue';
 
 
 // Define routes with TypeScript
 const routes: RouteRecordRaw[] = [
   {
-    path: '',
-    redirect: '/home'
-  },
-    {
-    path: '/parentB/about',
-    name: 'About',
-    component: About,
-    children: [
-      // Commented out MicroFrontendLoader example
-      // {
-      //   path: '*',
-      //   component: MicroFrontendLoader,
-      //   props: {
-      //     name: 'book-of-business',
-      //     baseRoute: '/fa',
-      //     version: 'x.x.x',
-      //     // registry: microFrontendRegistry['book-of-business']
-      //   }
-      // }
-    ],
-    meta: {
-      title: 'About Page',
-      requiresAuth: false
-    }
-  },
-
-  {
-    path: '/home',
+    path: '/parentB/home',
     name: 'Home',
     component: Home,
     meta: {
@@ -41,15 +15,24 @@ const routes: RouteRecordRaw[] = [
       // requiresAuth: false
     }
   },
-  // Optional: 404 catch-all route
-  // {
-  //   path: '/:pathMatch(.*)*',
-  //   name: 'NotFound',
-  //   component: () => import('./views/NotFound.vue'),
-  //   meta: {
-  //     title: 'Page Not Found'
-  //   }
-  // }
+    {
+    path: '/parentB/about',
+    name: 'About',
+    component: About,
+    meta: {
+      title: 'Home Page',
+      // requiresAuth: false
+    }
+  },
+  {
+    path: '/parentB/about/:id',
+    name: 'AboutId',
+    component: AboutId,
+    meta: {
+      title: 'Home Page',
+      // requiresAuth: false
+    }
+  },
 ];
 
 export default routes;
