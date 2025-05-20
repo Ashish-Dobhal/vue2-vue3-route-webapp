@@ -55,22 +55,11 @@ export default {
   },
   
   methods: {
-    //     parseRoute(fullPath) {
-    //   // Remove hash and base route
-    //   const cleanRoute = fullPath
-    //     .replace(/^#/, '')
-    //     .replace(this.baseRoute, '')
-    //     .replace(/^\//, '')
-
-    //   return cleanRoute || ''
-    // },
     async loadMicroFrontend() {
       try {
         // Reset previous state
         this.isLoading = true
-        this.error = null
-        
-        // const initialRoute = this.parseRoute(window.location.hash);
+        this.error = null        // const initialRoute = this.parseRoute(window.location.hash);
         // Use global loading function
         if (window.loadMicroFrontend) {
           await window.loadMicroFrontend({

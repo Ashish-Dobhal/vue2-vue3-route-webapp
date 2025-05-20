@@ -1,22 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <title>Vue 2 Container</title>
-  <script type="module">
-    // Micro Frontend Loading Function
-    window.loadMicroFrontend = async function (options) {
-      try {
+export async function loadESMWebapp(options) {
+  try {
         // Dynamic import with flexible configuration
-        const {
-          url = 'http://localhost:4173/mounted.js',
-          routeName,
-          mountPoint = 'micro-frontend-root'
+        const { 
+          url = 'http://localhost:4173/mounted.js', 
+          routeName, 
+          mountPoint = 'micro-frontend-root' 
         } = options;
 
-        // Import the remote module
-        const container = await import("http://localhost:4173/assets/remoteEntry.js");
+        // Use dynamic import with URL constructor for better browser compatibility
+        const remoteUrl = new URL("http://localhost:4173/assets/remoteEntry.js");
+        const container = await import(/* @vite-ignore */ "http://localhost:4173/assets/remoteEntry.js");
         console.log(Object.keys(container));
 
         try {
@@ -25,8 +18,8 @@
           console.log(factory);
           const module = factory();
 
-          // Logging for debugging
-          console.log('Micro Frontend Module:', module);
+        // Logging for debugging
+        console.log('Micro Frontend Module:', module);
 
           // Check for mount method
           if (typeof module.mount === 'function') {
@@ -34,24 +27,16 @@
             module.mount(document.getElementById(mountPoint), { routeName });
           } else {
             console.error('Invalid mount function in micro frontend');
-          }
+      }
         } catch (moduleError) {
           console.error('Module loading error:', moduleError);
-        }
+    }
       } catch (error) {
         console.error('Micro Frontend Loading Error:', error);
       }
     }
 
-  </script>
-</head>
-
-<body>
-  <header>Header webapp</header>
-  <div id="app"></div>
-
-  <!-- Micro Frontend Root -->
-  <div id="micro-frontend-root"></div>
-</body>
-
-</html>
+// // Optional: Add a global function for use in non-module contexts
+// if (typeof window !== 'undefined') {
+//   window.loadMicroFrontend = loadMicroFrontend;
+// }

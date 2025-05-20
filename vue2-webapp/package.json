@@ -8,14 +8,19 @@
     "build": "webpack --env LOCAL=false",
     "build:local": "webpack --env LOCAL=true"
   },
-  "keywords": ["vue", "webpack"],
+  "keywords": [
+    "vue",
+    "webpack"
+  ],
   "dependencies": {
+    "core-js": "^3.42.0",
     "vue": "^2.7.14",
     "vue-router": "^3.6.5",
     "vuex": "^3.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.x",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/preset-env": "^7.x",
     "babel-loader": "^8.x",
     "css-loader": "^6.x",

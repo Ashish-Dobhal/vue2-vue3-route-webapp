@@ -7,13 +7,8 @@ import AboutId from '../views/AboutId.vue';
 // Define routes with TypeScript
 const routes: RouteRecordRaw[] = [
   {
-    path: '/parentB/home',
-    name: 'Home',
+    path: '/parentB',
     component: Home,
-    meta: {
-      title: 'Home Page',
-      // requiresAuth: false
-    }
   },
     {
     path: '/parentB/about',
@@ -30,7 +25,6 @@ const routes: RouteRecordRaw[] = [
     component: AboutId,
     meta: {
       title: 'Home Page',
-      // requiresAuth: false
     }
   },
 ];

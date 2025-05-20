@@ -3,7 +3,7 @@
     <header v-if="showHeader">
       <h1>{{ title }}</h1>
       <nav>
-        <router-link to="/parentB/home">Home</router-link> |
+        <router-link to="/parentB">Home</router-link> |
         <router-link to="/parentB/about">About Us</router-link>
       </nav>
     </header>
@@ -40,7 +40,7 @@ export default defineComponent({
     },
     title: {
       type: String,
-      default: 'Micro Frontend'
+      default: 'Book of Business Container'
     }
   },
   setup() {
