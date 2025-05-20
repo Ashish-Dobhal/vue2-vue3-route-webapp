@@ -1,28 +1,27 @@
 import { RouteRecordRaw } from 'vue-router';
-import Home from '../views/Home.vue';
-import About from '../views/About.vue';
-import AboutId from '../views/AboutId.vue';
 
-
-// Define routes with TypeScript
+// Define routes with dynamic imports for code splitting
 const routes: RouteRecordRaw[] = [
+    {
+    path: '/',
+    redirect: 'parentB'
+  },
   {
     path: '/parentB',
-    component: Home,
+    component: () => import('../views/Home.vue'),
   },
-    {
+  {
     path: '/parentB/about',
     name: 'About',
-    component: About,
+    component: () => import('../views/About.vue'),
     meta: {
       title: 'Home Page',
-      // requiresAuth: false
     }
   },
   {
     path: '/parentB/about/:id',
     name: 'AboutId',
-    component: AboutId,
+    component: () => import('../views/AboutId.vue'),
     meta: {
       title: 'Home Page',
     }
@@ -31,11 +30,4 @@ const routes: RouteRecordRaw[] = [
 
 export default routes;
 
-// Optional: Type definitions for route metadata
-declare module 'vue-router' {
-  interface RouteMeta {
-    title?: string;
-    requiresAuth?: boolean;
-    roles?: string[];
-  }
-}
+// Type definitions for route metadata remain the same

@@ -1,6 +1,6 @@
 <template>
   <div>
-        <h1> {{ 'ParentBComponent' }}</h1>
+        <h2> {{ 'ClientPortal Container' }}</h2>
         <router-view></router-view>
   </div>
 </template>

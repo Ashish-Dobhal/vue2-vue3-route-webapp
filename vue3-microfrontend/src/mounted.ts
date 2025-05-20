@@ -3,7 +3,6 @@ import App from './App.vue';
 import { createRouter, createWebHashHistory, Router } from 'vue-router';
 import routes from './routes';
 import { isDev, version } from './config';
-
 // Use version from config
 export const VERSION = version;
 

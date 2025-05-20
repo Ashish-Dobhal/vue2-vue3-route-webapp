@@ -1,6 +1,6 @@
 <template>
   <div class="about-id">
-    <h1>About Id View</h1>
+    <h4>About Id View</h4>
   <span>ID: {{ $route.params.id }}</span>
   </div>
 </template>

@@ -1,24 +1,24 @@
 <template>
   <div class="micro-app">
     <header v-if="showHeader">
-      <h1>{{ title }}</h1>
-      <nav>
-        <router-link to="/parentB">Home</router-link> |
-        <router-link to="/parentB/about">About Us</router-link>
-      </nav>
+      <h3>{{ title }}</h3>
     </header>
 
     <main>
-      <!-- <div>Current Route: {{ router.currentRoute.value.path }}</div>
-      <div class="routes-list">
-        <h2>All Routes:</h2>
-        <ul>
-          <li v-for="route in routes" :key="route.path">
-            {{ route.path }} - {{ route.components || 'unnamed' }}
-            <span v-if="isRouteActive(route)" class="active-route">(active)</span>
-          </li>
-        </ul>
-      </div> -->
+      <!-- <span> {{ router.currentRoute }}</span> 
+      <span> Home {{  router.currentRoute.value.path == ('/parentB')  }}</span>
+      <span> About {{  router.currentRoute.value.path == ('/parentB/about')  }}</span> -->
+
+      <nav>
+        <router-link
+          to="/parentB"
+          :class="{ 'active-route': router.currentRoute.value.path == ('/parentB') }"
+        >Home</router-link> |
+        <router-link
+          to="/parentB/about"
+          :class="{ 'active-route': router.currentRoute.value.path == ('/parentB/about') }"
+        >About Us</router-link>
+      </nav>
       <div class="router-view-container">
         <router-view>
         </router-view>
@@ -66,7 +66,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 .micro-app {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -82,8 +82,8 @@ nav a {
 }
 
 .active-route {
-  color: green;
-  font-weight: bold;
+  color: green !important;
+  font-weight: bold !important;
   margin-left: 5px;
 }
 

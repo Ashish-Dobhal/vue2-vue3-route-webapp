@@ -1,5 +1,5 @@
 <template>
-  <h1> About View </h1>
+  <h4> About View </h4>
 </template>
 <script lang="ts">
 import { defineComponent  } from 'vue';

@@ -16,19 +16,9 @@
         } = options;
 
         // Import the remote module
-        const container = await import("http://localhost:4173/assets/remoteEntry.js");
-        console.log(Object.keys(container));
-
+        const module = await import("http://localhost:4173/fa.portal/bob/1.0.0/umd1/mounted.js");
+        console.log(Object.keys(module));
         try {
-          // Properly await the promise resolution and call the returned factory
-          const factory = await container.get('./mounted');
-          console.log(factory);
-          const module = factory();
-
-          // Logging for debugging
-          console.log('Micro Frontend Module:', module);
-
-          // Check for mount method
           if (typeof module.mount === 'function') {
             // Mount the route
             module.mount(document.getElementById(mountPoint), { routeName });
@@ -47,9 +37,7 @@
 </head>
 
 <body>
-  <header>Header webapp</header>
   <div id="app"></div>
-
   <!-- Micro Frontend Root -->
   <div id="micro-frontend-root"></div>
 </body>

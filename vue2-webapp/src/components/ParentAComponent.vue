@@ -1,6 +1,6 @@
 <template>
   <div>
-        <h1> {{ 'ParentAComponent' }}</h1>
+        <h2> {{ 'Order Ticket' }}</h2>
   </div>
 </template>
 

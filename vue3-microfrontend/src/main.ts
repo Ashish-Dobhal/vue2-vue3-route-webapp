@@ -1,5 +1,4 @@
 import { mount } from './mounted';
-
 // This file is only used during development
   const appElement = document.getElementById('app');
   if (appElement) {
