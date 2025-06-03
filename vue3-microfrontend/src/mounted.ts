@@ -5,6 +5,7 @@ import routes from './routes';
 import { isDev, version } from './config';
 // Use version from config
 export const VERSION = version;
+import { pinia } from '../stores'
 
 // Basic interface for mount props
 interface MountProps {
@@ -22,22 +23,18 @@ interface ModuleAPI {
 }
 
 // Mount function for federation
-export async function mount(el: Element, props: MountProps = {}): Promise<ModuleAPI> {
+export async function mountModule(el: Element, props: MountProps = {}): Promise<ModuleAPI> {
   // Create the app instance
   const app = createApp(App, props);
   
   // Create router with hash mode
   const router = createRouter({
     history: createWebHashHistory('/'),
-  routes
+  routes,
 });
 
+app.use(pinia);
 app.use(router);
-
-  // Navigate to specified route if provided
-  if (props.routeName) {
-    // router.push('about')
-  }
 
   // Mount the app
   app.mount(el);

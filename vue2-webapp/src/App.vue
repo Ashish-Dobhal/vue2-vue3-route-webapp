@@ -6,8 +6,7 @@
           <div class="nav-logo">Menu</div>
           <div class="nav-links">
             <router-link to="/parentA">Order Ticket</router-link>
-            <router-link to="/parentB">Book of Business</router-link>
-        <!-- <router-link to="/route">Route</router-link> -->
+            <router-link to="/fa/bookOfBusiness">Book of Business</router-link>
           </div>
         </nav>
       </aside>

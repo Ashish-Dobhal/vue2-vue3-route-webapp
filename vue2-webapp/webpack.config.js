@@ -20,6 +20,9 @@ module.exports = (env, argv) => {
       clean: true
     },
     
+    // Target ES6
+    target: ['web', 'es2020'],
+
     // Mode Determination
     mode: isProduction ? 'production' : 'development',
     
@@ -33,6 +36,9 @@ module.exports = (env, argv) => {
     
     // Development Server
     devServer: {
+       headers: {
+    "Access-Control-Allow-Origin": "*",
+  },
       port: 20000,
       hot: true,
       open: true,
@@ -58,7 +64,11 @@ module.exports = (env, argv) => {
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env'],
+              presets: [['@babel/preset-env', {
+                targets: {
+                  esmodules: true
+                }
+              }]],
               plugins: ["@babel/plugin-syntax-dynamic-import"]
             }
           }

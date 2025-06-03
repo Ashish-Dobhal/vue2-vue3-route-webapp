@@ -4,14 +4,14 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: RouteRecordRaw[] = [
     {
     path: '/',
-    redirect: 'parentB'
+    redirect: 'fa/bookOfBusiness'
   },
   {
-    path: '/parentB',
+    path: '/fa/bookOfBusiness',
     component: () => import('../views/Home.vue'),
   },
   {
-    path: '/parentB/about',
+    path: '/fa/bookOfBusiness/about',
     name: 'About',
     component: () => import('../views/About.vue'),
     meta: {
@@ -19,12 +19,16 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: '/parentB/about/:id',
+    path: '/fa/bookOfBusiness/about/:id',
     name: 'AboutId',
     component: () => import('../views/AboutId.vue'),
     meta: {
       title: 'Home Page',
     }
+  },
+    {
+    path: '/fa/bookOfBusiness*',
+    redirect: '/fa/bookOfBusiness'
   },
 ];
 

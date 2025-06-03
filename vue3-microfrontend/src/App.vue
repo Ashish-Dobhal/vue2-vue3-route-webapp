@@ -6,9 +6,17 @@
 
     <main>
       <!-- <span> {{ router.currentRoute }}</span> 
-      <span> Home {{  router.currentRoute.value.path == ('/parentB')  }}</span>
-      <span> About {{  router.currentRoute.value.path == ('/parentB/about')  }}</span> -->
-
+      <span> {{  counterStore.count || 'Wont Work' }} </span>
+      <div class="routes-list">
+        <h4>Available Routes:</h4>
+        <ul>
+          <li v-for="route in routes" :key="route.path">
+            <span :class="{ 'active-route': isRouteActive(route) }">
+              {{ route.path }} - {{ route.name || 'unnamed' }}
+            </span>
+          </li>
+        </ul>
+      </div> -->
       <nav>
         <router-link
           to="/parentB"
@@ -30,7 +38,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted, computed } from 'vue';
 import { RouteRecordNormalized, useRouter } from 'vue-router';
-
+import { useCounterStore } from '../stores/counter';
 export default defineComponent({
   name: 'MicroApp',
   props: {
@@ -46,7 +54,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const routes = ref<RouteRecordNormalized[]>([]);
-
+    const counterStore = useCounterStore();
     onMounted(() => {
       routes.value = router.getRoutes();
       console.log('Current route:', router.currentRoute.value);
@@ -60,7 +68,8 @@ export default defineComponent({
     return {
       router,
       routes,
-      isRouteActive
+      isRouteActive,
+      counterStore
     };
   }
 });

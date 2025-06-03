@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import MicroFrontendLoader from '../components/MicroFrontendLoader.vue';
 import ParentAComponent from '../components/ParentAComponent.vue';
-import ParentBComponent from '../components/ParentBComponent.vue';
+import ESModuleBridge from '../components/ESModuleBridge.vue';
 
 // Register VueRouter with Vue
 Vue.use(VueRouter);
@@ -19,20 +18,16 @@ const routes = [
     props: { route: 'parentA' },
   },
   {
-    path: '/parentB',
-    name: 'parentB',
-    component: ParentBComponent,
-    props: { route: 'parentB' },
-    children: [
-      {
-        path: '',  // Wildcard route - matches any child path
-        component: MicroFrontendLoader,
-      },
-      {
-        path: '*',  // Wildcard route - matches any child path
-        component: MicroFrontendLoader,
-      }
-    ]
+    path: '/fa/bookOfBusiness',
+    name: 'FABookOfBusiness',
+    component: ESModuleBridge,
+    meta: { moduleName: 'fa.book.of.business' },
+  },
+  {
+    path: '/da/bookOfBusiness*',
+    name: 'FABookOfBusinessChildren',
+    component: ESModuleBridge,
+    meta: { moduleName: 'fa.book.of.business'},
   },
 ];
 
